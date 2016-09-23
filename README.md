@@ -129,6 +129,12 @@ Examples:
   Note that using SSL connections requires additional configuration at the JVM level. For example, the
   broker's certificate needs to be verifiable by the JVM using it's CA cert store.
   
+- mqtt.sslVersion
+
+  Optional, define the SSL version that should be used when connecting to the MQTT broker.
+  Possible values are limited by the executing JVM, but could be one of:
+  SSL, SSLv2, SSLv3, TLS, TLSv1, TLSv1.1, TLSv1.2
+
 - mqtt.clientid
 
   ClientID to use in the MQTT connection. Defaults to "hm2mqtt".
@@ -136,7 +142,7 @@ Examples:
 - mqtt.topic
 
   The topic prefix used for publishing and subscribing. Defaults to "hm/".
-^
+
 - mqtt.username
 - mqtt.password
 

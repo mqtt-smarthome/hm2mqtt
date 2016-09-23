@@ -3,9 +3,12 @@ package com.tellerulam.hm2mqtt;
 import java.io.*;
 import java.math.*;
 import java.nio.charset.*;
+import java.security.*;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.logging.*;
+
+import javax.net.ssl.*;
 
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.*;
@@ -202,6 +205,25 @@ public class MQTTHandler
 			copts.setUserName(username);
 			copts.setPassword(password.toCharArray());
 			L.fine("Using MQTT username "+username);
+		}
+		String sslVersion=System.getProperty("hm2mqtt.mqtt.sslVersion");
+		if (sslVersion!=null)
+		{
+			try
+			{
+				SSLContext context = SSLContext.getInstance(sslVersion);
+				// TODO Maybe use custom trust manager for CA certs https://gist.github.com/sharonbn/4104301
+				context.init(null, null, null);
+				copts.setSocketFactory(context.getSocketFactory());
+			}
+			catch(NoSuchAlgorithmException nsae)
+			{
+				L.log(Level.WARNING, "Error creating SSLContext, check your configuration", nsae);
+			}
+			catch(KeyManagementException kme)
+			{
+				L.log(Level.WARNING, "Error initializing SSLContext, check your configuration", kme);
+			}
 		}
 		try
 		{
