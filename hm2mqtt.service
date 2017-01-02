@@ -1,0 +1,16 @@
+[Unit]
+Description=Interface between homematic rfd and mqtt
+After=network.target
+
+[Service]
+Type=forking
+GuessMainPID=yes
+ExecStart=/srv/hm2mqtt/start.sh
+ExecStop=/bin/kill -s SIGINT $MAINPID
+ExecStopPost=
+User=hmcon
+Group=hmcon
+WorkingDirectory=/srv/hm2mqtt
+
+[Install]
+WantedBy=multi-user.target
