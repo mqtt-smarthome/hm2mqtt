@@ -185,13 +185,13 @@ Examples:
 System start script
 -------------------
 There is an ```hm2mqtt.service``` file for ```/etc/system.d/system``` directory on a debian or debian like os.
-You have do modify the following variables in this file:
+You have to modify the following variables in this file:
 - User
 - Group
 - ExecStart
 - WorkingDirectory
 
-And do not forgett to check the configurations at the top of the ```start.sh``` script.
+And do not forgett to check the configurations at top of the ```start.sh``` script.
    
   
 See also
